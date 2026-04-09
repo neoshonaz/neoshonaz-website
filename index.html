@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neosho Church of the Nazarene</title>
+  <meta name="description" content="Welcome to Neosho Church of the Nazarene. Join us Sundays at 8:00 AM or 10:30 AM at 1045 Fairhill Dr, Neosho, MO." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <header class="site-header" id="top">
+    <nav class="nav container">
+      <a href="/" class="nav-logo">
+        <img src="images/NNC-Logo-25-1_logo-small.jpg" alt="Neosho Church of the Nazarene" class="nav-logo-img" />
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#events">Events</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#ministries">Ministries</a></li>
+        <li><a href="#leadership">Leadership</a></li>
+        <li><a href="#watch">Watch</a></li>
+        <li><a href="#im-new">I'm New</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://neoshonaz.churchcenter.com/giving" target="_blank" class="btn btn-primary nav-give">Give</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Current Sermon Series</p>
+      <h1 class="hero-title" id="hero-series-title">Romans</h1>
+      <p class="hero-subtitle" id="hero-series-subtitle">Join us as we explore God's Word together.</p>
+      <div class="hero-times">
+        <div class="time-card">
+          <span class="time-label">Traditional</span>
+          <span class="time-value">8:00 AM</span>
+          <span class="time-day">Sundays</span>
+        </div>
+        <div class="time-divider">+</div>
+        <div class="time-card">
+          <span class="time-label">Blended</span>
+          <span class="time-value">10:30 AM</span>
+          <span class="time-day">Sundays</span>
+        </div>
+        <div class="time-card time-card--secondary">
+          <span class="time-label">Sunday School</span>
+          <span class="time-value">9:30 AM</span>
+          <span class="time-day">Sundays</span>
+        </div>
+        <div class="time-card time-card--secondary">
+          <span class="time-label">Evening Service</span>
+          <span class="time-value">7:00 PM</span>
+          <span class="time-day">Wednesdays</span>
+        </div>
+      </div>
+      <div class="hero-ctas">
+        <a href="#im-new" class="btn btn-primary">I'm New Here</a>
+        <a href="#watch" class="btn btn-outline">Watch Live</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Events ───────────────────────────────────────────── -->
+  <section class="section" id="events">
+    <div class="container">
+      <div class="section-header">
+        <h2>Upcoming Events</h2>
+        <p>Stay connected with what's happening at Neosho Nazarene.</p>
+      </div>
+      <div class="cards-grid" id="events-container"></div>
+    </div>
+  </section>
+
+  <!-- ── Classes ──────────────────────────────────────────── -->
+  <section class="section section--gray" id="classes">
+    <div class="container">
+      <div class="section-header">
+        <h2>Classes &amp; Groups</h2>
+        <p>Grow in faith and community through our weekly classes.</p>
+      </div>
+      <h3 class="class-group-title">Sunday School &mdash; Sundays 9:30 AM</h3>
+      <div class="cards-grid" id="classes-sunday-container" style="margin-bottom: 3rem;"></div>
+      <h3 class="class-group-title">Midweek &mdash; Wednesdays 7:00 PM</h3>
+      <div class="cards-grid" id="classes-midweek-container"></div>
+    </div>
+  </section>
+
+  <!-- ── Ministries ────────────────────────────────────────── -->
+  <section class="section" id="ministries">
+    <div class="container">
+      <div class="section-header">
+        <h2>Ministries</h2>
+        <p>Opportunities to serve, grow, and connect with your church family and community.</p>
+      </div>
+      <div class="ministries-grid" id="ministries-container"></div>
+    </div>
+  </section>
+
+  <!-- ── Leadership ────────────────────────────────────────── -->
+  <section class="section section--gray" id="leadership">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Leadership</h2>
+        <p>Meet the pastors and staff who serve our congregation.</p>
+      </div>
+      <div class="leadership-grid">
+
+        <div class="leader-card">
+          <div class="leader-photo">
+            <img src="images/Keezer-Couple-738x1024.jpeg" alt="Rev. James Keezer" />
+          </div>
+          <div class="leader-info">
+            <h3>Rev. James Keezer</h3>
+            <p class="leader-title">Senior Pastor</p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="leader-contact">neoshonazarene@yahoo.com</a>
+          </div>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-photo">
+            <img src="images/Couch-Couple-1-768x1023.jpeg" alt="Rev. Justin Couch" style="object-position: center 60%;" />
+          </div>
+          <div class="leader-info">
+            <h3>Rev. Justin Couch</h3>
+            <p class="leader-title">Associate Pastor</p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="leader-contact">neoshonazarene@yahoo.com</a>
+          </div>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-photo">
+            <img src="images/Davis-Couple-768x871.jpeg" alt="Beau &amp; Lauren Davis" />
+          </div>
+          <div class="leader-info">
+            <h3>Beau &amp; Lauren Davis</h3>
+            <p class="leader-title">Youth Pastors</p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="leader-contact">neoshonazarene@yahoo.com</a>
+          </div>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-photo">
+            <img src="images/Brant-Couple-768x577.jpeg" alt="Jason Brant" style="object-position: center 60%;" />
+          </div>
+          <div class="leader-info">
+            <h3>Jason Brant</h3>
+            <p class="leader-title">Children's Ministries</p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="leader-contact">neoshonazarene@yahoo.com</a>
+          </div>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-photo">
+            <img src="images/Liggett-768x1016.jpeg" alt="Lauren Liggett" />
+          </div>
+          <div class="leader-info">
+            <h3>Lauren Liggett</h3>
+            <p class="leader-title">Worship Leader</p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="leader-contact">neoshonazarene@yahoo.com</a>
+          </div>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-photo">
+            <img src="images/placeholder-avatar.svg" alt="Rev. Darrell Cox" />
+          </div>
+          <div class="leader-info">
+            <h3>Rev. Darrell Cox</h3>
+            <p class="leader-title">PrimeTime Ministries</p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="leader-contact">neoshonazarene@yahoo.com</a>
+          </div>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-photo">
+            <img src="images/Pastor-Huffman-225x300.jpg" alt="Rev. DL Huffman" style="object-position: center 60%;" />
+          </div>
+          <div class="leader-info">
+            <h3>Rev. DL Huffman</h3>
+            <p class="leader-title">Pastor Emeritus</p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="leader-contact">neoshonazarene@yahoo.com</a>
+          </div>
+        </div>
+
+      </div>
+      <p class="leadership-note">
+        Individual staff email addresses and phone numbers will be added - replace <code>neoshonazarene@yahoo.com</code> placeholders with each person's direct contact.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Watch / Sermons ───────────────────────────────────── -->
+  <section class="section" id="watch">
+    <div class="container">
+      <div class="section-header">
+        <h2>Watch &amp; Listen</h2>
+        <p>Catch up on recent sermons or join us live on Sunday mornings.</p>
+      </div>
+
+      <div id="watch-featured"></div>
+
+      <h3 class="watch-archive-title">Previous Sermons</h3>
+      <div class="watch-archive" id="watch-archive"></div>
+
+      <div style="text-align:center;margin-top:2rem;">
+        <a id="watch-youtube-link" href="https://www.youtube.com/@NeoshoNaz" target="_blank" class="btn btn-navy">
+          All Sermons on YouTube
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── I'm New ───────────────────────────────────────────── -->
+  <section class="section section--gray" id="im-new">
+    <div class="container">
+      <div class="section-header">
+        <h2>I'm New Here</h2>
+        <p>We're so glad you're considering visiting. Here's everything you need to know.</p>
+      </div>
+      <div class="new-grid">
+
+        <div class="new-card">
+          <div class="new-icon">📍</div>
+          <h3>Where &amp; When</h3>
+          <p><strong>1045 Fairhill Dr<br>Neosho, MO 64850</strong></p>
+          <ul class="new-times">
+            <li>☀️ <strong>8:00 AM</strong> - Traditional Service</li>
+            <li>📚 <strong>9:30 AM</strong> - Sunday School</li>
+            <li>🎵 <strong>10:30 AM</strong> - Blended Service</li>
+            <li>🌙 <strong>Wed 7:00 PM</strong> - Evening Service</li>
+          </ul>
+          <a href="#contact" class="btn btn-navy" style="margin-top:1.25rem">Get Directions</a>
+        </div>
+
+        <div class="new-card">
+          <div class="new-icon">👋</div>
+          <h3>What to Expect</h3>
+          <p>Come as you are. Our congregation is warm and welcoming - you don't have to dress up or know anything specific to walk through our doors.</p>
+          <p>Our services typically run about an hour. Greeters will be at the door to welcome you and answer any questions. Children's classes are available during the Wednesday evening service.</p>
+        </div>
+
+        <div class="new-card">
+          <div class="new-icon">🎶</div>
+          <h3>Worship Style</h3>
+          <p>We offer two distinct Sunday morning experiences to fit different preferences:</p>
+          <ul class="new-times">
+            <li><strong>8:00 AM</strong> - Traditional worship with hymns and a formal feel.</li>
+            <li><strong>10:30 AM</strong> - Blended worship with a mix of contemporary and traditional elements.</li>
+          </ul>
+          <p style="margin-top:0.75rem">Both services feature Bible-based preaching from our pastoral team.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What We Believe ───────────────────────────────────── -->
+  <section class="section believe-section" id="believe">
+    <div class="container">
+      <div class="believe-inner">
+        <div class="believe-text">
+          <p class="hero-eyebrow" style="color:var(--gold);">Our Foundation</p>
+          <h2>What We Believe</h2>
+          <p>We are part of the global Church of the Nazarene, a denomination rooted in the Wesleyan-Holiness tradition. We believe in the transforming grace of God available to every person - that Jesus Christ saves, sanctifies, and renews.</p>
+          <p>Our beliefs are grounded in Scripture and expressed in the Church of the Nazarene's Articles of Faith.</p>
+          <div class="believe-ctas">
+            <a href="https://nazarene.org/what-we-believe/" target="_blank" class="btn btn-primary">
+              What We Believe
+            </a>
+          </div>
+        </div>
+        <div class="believe-pillars">
+          <div class="pillar">
+            <span class="pillar-icon">✝️</span>
+            <h4>Salvation</h4>
+            <p>We believe in salvation by grace through faith in Jesus Christ.</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">🕊️</span>
+            <h4>Holy Spirit</h4>
+            <p>We believe in the sanctifying work of the Holy Spirit in the believer's life.</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">📖</span>
+            <h4>Scripture</h4>
+            <p>We believe the Bible is the inspired Word of God and our guide for life and faith.</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">🌍</span>
+            <h4>Community</h4>
+            <p>We believe the Church is called to love God and love our neighbors - locally and globally.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ───────────────────────────────────────────── -->
+  <section class="section section--gray" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>Contact &amp; Find Us</h2>
+        <p>We'd love to hear from you. Stop by, call, or send us an email.</p>
+      </div>
+      <div class="contact-grid">
+
+        <div class="contact-block">
+          <h3>📍 Address</h3>
+          <p>1045 Fairhill Dr<br>Neosho, MO 64850</p>
+          <h3 style="margin-top:1.5rem">🕐 Service Times</h3>
+          <ul class="new-times">
+            <li><strong>Sun 8:00 AM</strong> - Traditional</li>
+            <li><strong>Sun 9:30 AM</strong> - Sunday School</li>
+            <li><strong>Sun 10:30 AM</strong> - Blended</li>
+            <li><strong>Wed 7:00 PM</strong> - Evening Service</li>
+          </ul>
+        </div>
+
+        <div class="contact-block">
+          <h3>✉️ Get in Touch</h3>
+          <p>
+            <a href="mailto:neoshonazarene@yahoo.com" class="contact-link">neoshonazarene@yahoo.com</a>
+          </p>
+          <!-- Add phone once confirmed: -->
+          <!-- <p><a href="tel:+1XXXXXXXXXX" class="contact-link">(XXX) XXX-XXXX</a></p> -->
+          <h3 style="margin-top:1.5rem">📱 Follow Us</h3>
+          <a href="https://www.facebook.com/NazNeosho" target="_blank" class="contact-link">
+            Facebook - @NazNeosho
+          </a>
+          <div style="margin-top:1.5rem">
+            <a href="https://neoshonaz.churchcenter.com/giving" target="_blank" class="btn btn-primary">Give Online</a>
+          </div>
+        </div>
+
+        <div class="contact-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3220.0!2d-94.3677!3d36.8692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87c8e4b0e0000001%3A0x1!2s1045+Fairhill+Dr%2C+Neosho%2C+MO+64850!5e0!3m2!1sen!2sus!4v1234567890"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Church location map"
+          ></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/NNC-Logo-25-1_logo-small.jpg" alt="Neosho Church of the Nazarene" class="footer-logo" />
+        <p class="footer-name">Neosho Church of the Nazarene</p>
+        <p class="footer-address">1045 Fairhill Dr · Neosho, MO 64850</p>
+        <p class="footer-address">
+          <a href="mailto:neoshonazarene@yahoo.com">neoshonazarene@yahoo.com</a>
+        </p>
+      </div>
+      <div class="footer-links">
+        <p class="footer-col-title">Quick Links</p>
+        <ul>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#ministries">Ministries</a></li>
+          <li><a href="#leadership">Leadership</a></li>
+          <li><a href="#watch">Watch</a></li>
+          <li><a href="#im-new">I'm New</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <p class="footer-col-title">Connect</p>
+        <a href="https://www.facebook.com/NazNeosho" target="_blank" class="footer-social-link">
+          📘 Facebook
+        </a>
+        <a href="https://neoshonaz.churchcenter.com/giving" target="_blank" class="btn btn-primary" style="margin-top:1rem;display:inline-block">
+          Give Online
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© <span id="year"></span> Neosho Church of the Nazarene · Church of the Nazarene</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
