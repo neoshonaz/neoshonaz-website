@@ -813,3 +813,50 @@ ul { list-style: none; }
   font-weight: 600;
   white-space: nowrap;
 }
+
+/* ── Calendar Accordion ────────────────────────────────── */
+.cal-accordion {
+  margin-top: 2rem;
+}
+
+.cal-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background: var(--navy);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.cal-accordion-trigger::-webkit-details-marker { display: none; }
+
+.cal-accordion-trigger::after {
+  content: '▸';
+  font-size: 0.85rem;
+  transition: transform 0.2s;
+}
+
+.cal-accordion[open] .cal-accordion-trigger {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.cal-accordion[open] .cal-accordion-trigger::after {
+  transform: rotate(90deg);
+}
+
+.cal-accordion[open] > div {
+  border: 1px solid var(--gray-200);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 1.5rem 0;
+}

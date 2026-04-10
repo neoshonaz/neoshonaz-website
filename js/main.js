@@ -93,7 +93,6 @@ function renderEvents(events) {
   }
 
   renderCalendar(calendarEvents);
-  document.getElementById('events-calendar-section').style.display = '';
 }
 
 function renderCalendar(events) {

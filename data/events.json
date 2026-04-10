@@ -7,5 +7,14 @@
     "description": "The church will be hosting a sale as part of the city-wide garage sale. Come shop or help out!",
     "time": "April 10–11",
     "link": ""
+  },
+  {
+    "date": "2026-12-25",
+    "month": "DEC",
+    "day": "25",
+    "title": "Christmas",
+    "description": "Join us as we celebrate the birth of Jesus Christ.",
+    "time": "December 25",
+    "link": ""
   }
 ]
