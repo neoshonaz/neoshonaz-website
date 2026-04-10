@@ -26,6 +26,29 @@
 - [ ] Add individual staff email addresses to leadership section in `index.html`
   - Currently all show `neoshonazarene@yahoo.com` as placeholder
 
+### Email-to-PR Content Editing (waiting on domain transfer)
+- [ ] Domain transfer from Sharefaith → Porkbun finalizes
+- [ ] Create SendGrid account and enable Inbound Parse
+- [ ] Add subdomain (e.g. `updates.yourdomain.com`) in Porkbun DNS
+- [ ] Point subdomain MX records to SendGrid
+- [ ] Create skills: `github-api` and `sendgrid-inbound-parse`
+- [ ] Create `neoshonaz-update-router` skill adapted from `faithsw-update-router` in `faithsw-skills/` (use as reference for parsing free-form email content and routing to the correct JSON file)
+- [ ] Build Netlify Function (`netlify/functions/content-update.js`):
+  - Verify sender is on approved list
+  - Parse email body with Claude API (`claude-haiku-4-5`)
+  - Read current JSON files from GitHub API
+  - Write updated JSON back via GitHub API on a new branch
+  - Open PR via GitHub API
+  - Send confirmation email (PR link + Netlify preview URL) to sender and admin
+- [ ] Add environment variables in Netlify:
+  - `SENDGRID_API_KEY`
+  - `GITHUB_TOKEN` (fine-grained PAT: contents read/write, pull requests write)
+  - `ANTHROPIC_API_KEY`
+  - `APPROVED_SENDERS` (comma-separated list)
+  - `ADMIN_EMAIL`
+- [ ] Test end-to-end: send a test email → verify PR + preview link arrives
+- [ ] Add approved sender emails for all content editors
+
 ### Nice to Have
 - [ ] Add hero background image (`images/church-building.jpg` is available)
 - [ ] Fill in phone number in contact section (currently commented out)
