@@ -92,15 +92,19 @@ function renderEvents(events) {
     `).join('');
   }
 
-  if (calendarEvents.length > 0) {
-    renderCalendar(calendarEvents);
-    document.getElementById('events-calendar-section').style.display = '';
-  }
+  renderCalendar(calendarEvents);
+  document.getElementById('events-calendar-section').style.display = '';
 }
 
 function renderCalendar(events) {
   // Group events by year-month
   const byMonth = {};
+
+  // Always include the current month so the calendar is never blank
+  const now = new Date();
+  const currentKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  byMonth[currentKey] = [];
+
   events.forEach(e => {
     const key = e.date.slice(0, 7); // "YYYY-MM"
     if (!byMonth[key]) byMonth[key] = [];
@@ -135,13 +139,15 @@ function renderCalendar(events) {
       cells.push(`<div class="cal-cell${hasEvent ? ' cal-has-event' : ''}">${d}${dots}</div>`);
     }
 
-    const eventList = monthEvents.map(e => `
-      <div class="cal-event-item">
-        <span class="cal-event-date">${e.time}</span>
-        <span class="cal-event-title">${escapeHtml(e.title)}</span>
-        ${e.link ? `<a href="${safeUrl(e.link)}" target="_blank" class="cal-event-link">Details</a>` : ''}
-      </div>
-    `).join('');
+    const eventList = monthEvents.length > 0
+      ? monthEvents.map(e => `
+          <div class="cal-event-item">
+            <span class="cal-event-date">${e.time}</span>
+            <span class="cal-event-title">${escapeHtml(e.title)}</span>
+            ${e.link ? `<a href="${safeUrl(e.link)}" target="_blank" class="cal-event-link">Details</a>` : ''}
+          </div>
+        `).join('')
+      : '<p style="color:var(--gray-400);font-size:0.85rem;text-align:center;margin:0;">No events scheduled this month.</p>';
 
     return `
       <div class="cal-month">
