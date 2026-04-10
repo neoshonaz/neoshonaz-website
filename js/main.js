@@ -54,21 +54,108 @@ function renderSermon(data) {
 }
 
 function renderEvents(events) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const twoWeeksOut = new Date(today);
+  twoWeeksOut.setDate(twoWeeksOut.getDate() + 14);
+
+  const upcoming = [];
+  const calendarEvents = [];
+
+  events.forEach(e => {
+    if (!e.date) { upcoming.push(e); return; }
+    const d = new Date(e.date + 'T00:00:00');
+    if (d <= twoWeeksOut) {
+      upcoming.push(e);
+    } else {
+      calendarEvents.push(e);
+    }
+  });
+
   const container = document.getElementById('events-container');
-  container.innerHTML = events.map(e => `
-    <article class="card event-card">
-      <div class="event-date">
-        <span class="event-month">${e.month}</span>
-        <span class="event-day">${e.day}</span>
+  if (upcoming.length === 0) {
+    container.innerHTML = '<p style="color:var(--gray-400);text-align:center;grid-column:1/-1;">No events in the next two weeks. Check the calendar below for future events.</p>';
+  } else {
+    container.innerHTML = upcoming.map(e => `
+      <article class="card event-card">
+        <div class="event-date">
+          <span class="event-month">${e.month}</span>
+          <span class="event-day">${e.day}</span>
+        </div>
+        <div class="event-body">
+          <h3>${e.title}</h3>
+          <p>${e.description}</p>
+          <span class="event-time">${e.time}</span>
+          ${e.link ? `<a href="${safeUrl(e.link)}" class="btn btn-navy" style="margin-top:0.75rem;display:inline-block" target="_blank">Learn More</a>` : ''}
+        </div>
+      </article>
+    `).join('');
+  }
+
+  if (calendarEvents.length > 0) {
+    renderCalendar(calendarEvents);
+    document.getElementById('events-calendar-section').style.display = '';
+  }
+}
+
+function renderCalendar(events) {
+  // Group events by year-month
+  const byMonth = {};
+  events.forEach(e => {
+    const key = e.date.slice(0, 7); // "YYYY-MM"
+    if (!byMonth[key]) byMonth[key] = [];
+    byMonth[key].push(e);
+  });
+
+  const monthNames = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+  const dayLabels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  const html = Object.keys(byMonth).sort().map(key => {
+    const [year, month] = key.split('-').map(Number);
+    const monthEvents = byMonth[key];
+    const eventDays = {};
+    monthEvents.forEach(e => {
+      const day = parseInt(e.date.slice(8), 10);
+      if (!eventDays[day]) eventDays[day] = [];
+      eventDays[day].push(e);
+    });
+
+    const firstDay = new Date(year, month - 1, 1).getDay();
+    const daysInMonth = new Date(year, month, 0).getDate();
+
+    const cells = [];
+    for (let i = 0; i < firstDay; i++) cells.push('<div class="cal-cell cal-empty"></div>');
+    for (let d = 1; d <= daysInMonth; d++) {
+      const evs = eventDays[d] || [];
+      const dots = evs.map(e =>
+        `<span class="cal-dot" title="${escapeHtml(e.title)}"></span>`
+      ).join('');
+      const hasEvent = evs.length > 0;
+      cells.push(`<div class="cal-cell${hasEvent ? ' cal-has-event' : ''}">${d}${dots}</div>`);
+    }
+
+    const eventList = monthEvents.map(e => `
+      <div class="cal-event-item">
+        <span class="cal-event-date">${e.time}</span>
+        <span class="cal-event-title">${escapeHtml(e.title)}</span>
+        ${e.link ? `<a href="${safeUrl(e.link)}" target="_blank" class="cal-event-link">Details</a>` : ''}
       </div>
-      <div class="event-body">
-        <h3>${e.title}</h3>
-        <p>${e.description}</p>
-        <span class="event-time">${e.time}</span>
-        ${e.link ? `<a href="${safeUrl(e.link)}" class="btn btn-navy" style="margin-top:0.75rem;display:inline-block" target="_blank">Learn More</a>` : ''}
+    `).join('');
+
+    return `
+      <div class="cal-month">
+        <div class="cal-month-header">${monthNames[month - 1]} ${year}</div>
+        <div class="cal-grid">
+          ${dayLabels.map(l => `<div class="cal-day-label">${l}</div>`).join('')}
+          ${cells.join('')}
+        </div>
+        <div class="cal-event-list">${eventList}</div>
       </div>
-    </article>
-  `).join('');
+    `;
+  }).join('');
+
+  document.getElementById('events-calendar').innerHTML = html;
 }
 
 function renderClasses(data) {

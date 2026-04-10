@@ -1,21 +1,21 @@
 {
   "sundaySchool": [
     {
-      "icon": "📖",
+      "icon": "",
       "title": "Classic Christian Literature",
       "description": "Adult Bible study exploring the great works of the Christian faith.",
       "leader": "",
       "time": "Sundays · 9:30 AM"
     },
     {
-      "icon": "✝️",
+      "icon": "",
       "title": "Faith Foundations",
       "description": "Current Series: <strong>That the World May Know</strong> — Discovering how God guided His people to the Promised Land to impact the world in ancient times and today.",
       "leader": "Led by Patrick McNeill",
       "time": "Sundays · 9:30 AM"
     },
     {
-      "icon": "👑",
+      "icon": "",
       "title": "Sho Naz Kingdom Kids",
       "description": "Christ-centered Bible learning for children in a fun and welcoming environment.",
       "leader": "",
@@ -24,28 +24,28 @@
   ],
   "midweek": [
     {
-      "icon": "📖",
+      "icon": "",
       "title": "Hosea",
       "description": "A deep dive into the book of Hosea and God's relentless love for His people.",
       "leader": "Led by Pastor James & Jason Cramer",
       "time": "Wednesdays · 7:00 PM"
     },
     {
-      "icon": "✝️",
+      "icon": "",
       "title": "Discipleship Training",
       "description": "Current Class: <strong>Mere Christianity</strong> — Intentional discipleship equipping believers to grow and serve faithfully.",
       "leader": "Led by Patrick McNeill",
       "time": "Wednesdays · 7:00 PM"
     },
     {
-      "icon": "🔥",
+      "icon": "",
       "title": "Testify Youth Ministry",
       "description": "Vibrant, relevant discipleship for middle and high school students. <strong>1 John 1:2-3</strong>",
       "leader": "",
       "time": "Wednesdays · 7:00 PM"
     },
     {
-      "icon": "👑",
+      "icon": "",
       "title": "Sho Naz Kingdom Kids",
       "description": "Doors open at 6:30 PM. A small meal is provided before class begins.",
       "leader": "",
