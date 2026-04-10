@@ -54,21 +54,31 @@ function renderSermon(data) {
 }
 
 function renderEvents(events) {
+  const sorted = [...events].sort((a, b) => {
+    if (!a.date) return 1;
+    if (!b.date) return -1;
+    return a.date.localeCompare(b.date);
+  });
+
   const container = document.getElementById('events-container');
-  container.innerHTML = events.map(e => `
-    <article class="card event-card">
-      <div class="event-date">
-        <span class="event-month">${e.month}</span>
-        <span class="event-day">${e.day}</span>
-      </div>
-      <div class="event-body">
-        <h3>${e.title}</h3>
-        <p>${e.description}</p>
-        <span class="event-time">${e.time}</span>
-        ${e.link ? `<a href="${safeUrl(e.link)}" class="btn btn-navy" style="margin-top:0.75rem;display:inline-block" target="_blank">Learn More</a>` : ''}
-      </div>
-    </article>
-  `).join('');
+  if (sorted.length === 0) {
+    container.innerHTML = '<p style="color:var(--gray-400);text-align:center;grid-column:1/-1;">No upcoming events at this time.</p>';
+  } else {
+    container.innerHTML = sorted.map(e => `
+      <article class="card event-card">
+        <div class="event-date">
+          <span class="event-month">${e.month}</span>
+          <span class="event-day">${e.day}</span>
+        </div>
+        <div class="event-body">
+          <h3>${e.title}</h3>
+          <p>${e.description}</p>
+          <span class="event-time">${e.time}</span>
+          ${e.link ? `<a href="${safeUrl(e.link)}" class="btn btn-navy" style="margin-top:0.75rem;display:inline-block" target="_blank">Learn More</a>` : ''}
+        </div>
+      </article>
+    `).join('');
+  }
 }
 
 function renderClasses(data) {
