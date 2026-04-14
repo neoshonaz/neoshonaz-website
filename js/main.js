@@ -62,7 +62,7 @@ function renderEvents(events) {
 
   const container = document.getElementById('events-container');
   if (sorted.length === 0) {
-    container.innerHTML = '<p style="color:var(--gray-400);text-align:center;grid-column:1/-1;">No upcoming events at this time.</p>';
+    container.innerHTML = '<p style="color:var(--gray-400);text-align:center;grid-column:1/-1;">Stay Tuned!</p>';
   } else {
     container.innerHTML = sorted.map(e => `
       <article class="card event-card">
