@@ -127,12 +127,25 @@ function renderWatch(data) {
   if (data.youtubeChannelUrl) ytLink.href = data.youtubeChannelUrl;
 
   // Live embed or Next Service card
-  const safeEmbedId = data.rumbleEmbedId && /^[\w-]+$/.test(data.rumbleEmbedId)
+  const liveChannelUrl = data.rumbleLiveChannelUrl || null;
+  const safeEmbedId = !liveChannelUrl && data.rumbleEmbedId && /^[\w-]+$/.test(data.rumbleEmbedId)
     ? data.rumbleEmbedId : null;
   const safePubId = data.rumblePubId && /^[\w-]+$/.test(data.rumblePubId)
     ? data.rumblePubId : '4';
 
-  if (safeEmbedId) {
+  if (liveChannelUrl) {
+    const embedSrc = `https://rumble.com/embed/live_stream?url=${encodeURIComponent(liveChannelUrl)}`;
+    featured.innerHTML = `
+      <div class="watch-embed" style="margin-bottom:2rem;">
+        <iframe
+          src="${embedSrc}"
+          title="Live Service"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    `;
+  } else if (safeEmbedId) {
     featured.innerHTML = `
       <div class="watch-embed" style="margin-bottom:2rem;">
         <iframe
