@@ -1,0 +1,94 @@
+backend:
+  name: git-gateway
+  branch: master
+
+publish_mode: editorial_workflow
+
+media_folder: images
+public_folder: /images
+
+collections:
+  - name: events
+    label: Events
+    files:
+      - name: events_list
+        label: Events
+        file: data/events.json
+        fields:
+          - name: events
+            label: Events
+            widget: list
+            fields:
+              - {name: title, label: Title, widget: string}
+              - {name: date, label: Sort Date, widget: string, hint: "YYYY-MM-DD format used for sorting, e.g. 2026-07-04"}
+              - {name: month, label: Month, widget: string, hint: "Short uppercase month, e.g. JUL"}
+              - {name: day, label: Day, widget: string, hint: "Day number, e.g. 4"}
+              - {name: time, label: Time, widget: string, hint: "e.g. 3:00 PM"}
+              - {name: description, label: Description, widget: text}
+              - {name: link, label: Learn More URL, widget: string, required: false}
+
+  - name: classes
+    label: Classes
+    files:
+      - name: classes_list
+        label: All Classes
+        file: data/classes.json
+        fields:
+          - name: sundaySchool
+            label: Sunday School Classes
+            widget: list
+            fields:
+              - {name: title, label: Title, widget: string}
+              - {name: description, label: Description, widget: text}
+              - {name: leader, label: Leader, widget: string, required: false, hint: "e.g. Led by Patrick McNeill"}
+              - {name: time, label: Time, widget: string, hint: "e.g. Sundays · 9:30 AM"}
+              - {name: icon, label: Icon, widget: string, required: false}
+          - name: midweek
+            label: Midweek Classes
+            widget: list
+            fields:
+              - {name: title, label: Title, widget: string}
+              - {name: description, label: Description, widget: text}
+              - {name: leader, label: Leader, widget: string, required: false, hint: "e.g. Led by Pastor James"}
+              - {name: time, label: Time, widget: string, hint: "e.g. Wednesdays · 7:00 PM"}
+              - {name: icon, label: Icon, widget: string, required: false}
+
+  - name: ministries
+    label: Ministries
+    files:
+      - name: ministries_list
+        label: Ministries
+        file: data/ministries.json
+        fields:
+          - name: ministries
+            label: Ministries
+            widget: list
+            fields:
+              - {name: title, label: Title, widget: string}
+              - {name: description, label: Description, widget: text}
+              - {name: color, label: Color, widget: color}
+              - {name: icon, label: Icon, widget: string, required: false}
+              - {name: link, label: Link URL, widget: string, required: false}
+              - {name: linkText, label: Link Text, widget: string, required: false}
+
+  - name: sermon
+    label: Sermon Series
+    files:
+      - name: sermon_series
+        label: Current Sermon Series
+        file: data/sermon.json
+        fields:
+          - {name: series, label: Series Name, widget: string}
+          - {name: subtitle, label: Subtitle, widget: text}
+
+  - name: livestream
+    label: Livestream
+    files:
+      - name: livestream_settings
+        label: Livestream Settings
+        file: data/livestream.json
+        fields:
+          - {name: rumbleEmbedId, label: Rumble Embed ID, widget: string}
+          - {name: rumblePubId, label: Rumble Publisher ID, widget: string}
+          - {name: nextService, label: Next Service Text, widget: string, hint: "e.g. Join us this Sunday at 10:30 AM"}
+          - {name: youtubeChannelUrl, label: YouTube Channel URL, widget: string}
