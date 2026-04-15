@@ -4,6 +4,8 @@ backend:
 
 publish_mode: editorial_workflow
 
+logo_url: /images/NNC-Logo-25-1_logo.jpg
+
 media_folder: images
 public_folder: /images
 
