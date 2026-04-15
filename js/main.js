@@ -134,7 +134,8 @@ function renderWatch(data) {
     ? data.rumblePubId : '4';
 
   if (liveChannelUrl) {
-    const embedSrc = `https://rumble.com/embed/live_stream?url=${encodeURIComponent(liveChannelUrl)}`;
+    const channelBase = liveChannelUrl.replace(/\/live\/?$/, '');
+    const embedSrc = `https://rumble.com/embed/live_stream?url=${encodeURIComponent(channelBase)}`;
     featured.innerHTML = `
       <div class="watch-embed" style="margin-bottom:2rem;">
         <iframe
