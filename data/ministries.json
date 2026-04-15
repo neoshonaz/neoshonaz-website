@@ -1,58 +1,60 @@
-[
-  {
-    "icon": "",
-    "color": "#2a4a7f",
-    "title": "Testify Youth",
-    "description": "A vibrant ministry for teens that takes faith seriously and meets students where they are.",
-    "link": "",
-    "linkText": ""
-  },
-  {
-    "icon": "",
-    "color": "#8B5E3C",
-    "title": "Faith Foundations",
-    "description": "Building a solid biblical foundation through intentional discipleship at every stage of life.",
-    "link": "",
-    "linkText": ""
-  },
-  {
-    "icon": "",
-    "color": "#3a7a3a",
-    "title": "Kingdom Kids",
-    "description": "Nurturing the faith of children in a safe, fun, and Christ-centered environment.",
-    "link": "",
-    "linkText": ""
-  },
-  {
-    "icon": "",
-    "color": "#5a3a8a",
-    "title": "Global Nazarene",
-    "description": "Connected to the worldwide Church of the Nazarene - a global family serving in over 160 world areas.",
-    "link": "https://nazarene.org/",
-    "linkText": "nazarene.org"
-  },
-  {
-    "icon": "",
-    "color": "#1e3a5f",
-    "title": "Joplin District Church of the Nazarene",
-    "description": "We are part of the Joplin District — a network of Nazarene churches serving southwest Missouri and beyond.",
-    "link": "https://www.joplindistrictnaz.org/",
-    "linkText": "joplindistrictnaz.org"
-  },
-  {
-    "icon": "",
-    "color": "#7a5a2a",
-    "title": "Worship Ministry",
-    "description": "Glorifying God through music and creative arts. Opportunities for singers and musicians of all levels.",
-    "link": "",
-    "linkText": ""
-  },
-  {
-    "icon": "",
-    "color": "#1a5a5a",
-    "title": "PrimeTime Ministries",
-    "description": "Enriching the lives of senior adults through fellowship, service, and continued spiritual growth.",
-    "link": "",
-    "linkText": ""
-  }
-]
+{
+  "ministries": [
+    {
+      "icon": "",
+      "color": "#2a4a7f",
+      "title": "Testify Youth",
+      "description": "A vibrant ministry for teens that takes faith seriously and meets students where they are.",
+      "link": "",
+      "linkText": ""
+    },
+    {
+      "icon": "",
+      "color": "#8B5E3C",
+      "title": "Faith Foundations",
+      "description": "Building a solid biblical foundation through intentional discipleship at every stage of life.",
+      "link": "",
+      "linkText": ""
+    },
+    {
+      "icon": "",
+      "color": "#3a7a3a",
+      "title": "Kingdom Kids",
+      "description": "Nurturing the faith of children in a safe, fun, and Christ-centered environment.",
+      "link": "",
+      "linkText": ""
+    },
+    {
+      "icon": "",
+      "color": "#5a3a8a",
+      "title": "Global Nazarene",
+      "description": "Connected to the worldwide Church of the Nazarene - a global family serving in over 160 world areas.",
+      "link": "https://nazarene.org/",
+      "linkText": "nazarene.org"
+    },
+    {
+      "icon": "",
+      "color": "#1e3a5f",
+      "title": "Joplin District Church of the Nazarene",
+      "description": "We are part of the Joplin District — a network of Nazarene churches serving southwest Missouri and beyond.",
+      "link": "https://www.joplindistrictnaz.org/",
+      "linkText": "joplindistrictnaz.org"
+    },
+    {
+      "icon": "",
+      "color": "#7a5a2a",
+      "title": "Worship Ministry",
+      "description": "Glorifying God through music and creative arts. Opportunities for singers and musicians of all levels.",
+      "link": "",
+      "linkText": ""
+    },
+    {
+      "icon": "",
+      "color": "#1a5a5a",
+      "title": "PrimeTime Ministries",
+      "description": "Enriching the lives of senior adults through fellowship, service, and continued spiritual growth.",
+      "link": "",
+      "linkText": ""
+    }
+  ]
+}
