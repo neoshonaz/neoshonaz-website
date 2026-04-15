@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neosho Naz — Content Manager</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    /* Preview pane base styles matching the live site */
+    .preview-wrap { font-family: 'Inter', sans-serif; padding: 24px; background: #f9f9f9; min-height: 100vh; }
+    .preview-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+    .preview-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .event-date-badge { background: #1e3a5f; color: #fff; border-radius: 6px; padding: 10px 14px; text-align: center; min-width: 52px; }
+    .event-date-badge .month { font-size: 10px; text-transform: uppercase; font-weight: 700; }
+    .event-date-badge .day { font-size: 22px; font-weight: 800; line-height: 1; }
+    .ministry-badge { border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Decap CMS 3.x exposes React.createElement as window.h when loaded via CDN
+    var h = window.h;
+
+    // ── Events Preview ───────────────────────────────────────
+    CMS.registerPreviewTemplate('events_list', function(props) {
+      var events = props.entry.getIn(['data', 'events']);
+      var items = events ? events.toJS() : [];
+      if (items.length === 0) {
+        return h('div', { className: 'preview-wrap' },
+          h('p', { className: 'preview-label' }, 'Events'),
+          h('p', { style: { color: '#aaa', textAlign: 'center' } }, 'No events yet — add one to see a preview.')
+        );
+      }
+      return h('div', { className: 'preview-wrap' },
+        h('p', { className: 'preview-label' }, 'Events'),
+        items.map(function(e, i) {
+          return h('div', { key: i, className: 'preview-card', style: { display: 'flex', gap: '16px', alignItems: 'flex-start' } },
+            h('div', { className: 'event-date-badge' },
+              h('div', { className: 'month' }, e.month || ''),
+              h('div', { className: 'day' }, e.day || '')
+            ),
+            h('div', {},
+              h('h3', { style: { margin: '0 0 6px', fontSize: '16px' } }, e.title || ''),
+              h('p', { style: { margin: '0 0 4px', color: '#555', fontSize: '14px' } }, e.description || ''),
+              h('span', { style: { fontSize: '13px', color: '#888' } }, e.time || ''),
+              e.link ? h('a', { href: e.link, style: { fontSize: '12px', color: '#b8860b', display: 'block', marginTop: '4px' } }, 'Learn More') : null
+            )
+          );
+        })
+      );
+    });
+
+    // ── Classes Preview ──────────────────────────────────────
+    CMS.registerPreviewTemplate('classes_list', function(props) {
+      var sunday = props.entry.getIn(['data', 'sundaySchool']);
+      var midweek = props.entry.getIn(['data', 'midweek']);
+      var sundayItems = sunday ? sunday.toJS() : [];
+      var midweekItems = midweek ? midweek.toJS() : [];
+
+      function classCard(c, i) {
+        return h('div', { key: i, className: 'preview-card' },
+          h('h3', { style: { margin: '0 0 6px', fontSize: '15px' } }, c.title || ''),
+          h('p', { style: { margin: '0 0 4px', fontSize: '13px', color: '#555' } }, c.description || ''),
+          c.leader ? h('p', { style: { margin: '0 0 4px', fontSize: '12px', color: '#1e3a5f', fontWeight: '600' } }, c.leader) : null,
+          h('span', { style: { fontSize: '12px', color: '#888' } }, c.time || '')
+        );
+      }
+
+      return h('div', { className: 'preview-wrap' },
+        h('p', { className: 'preview-label' }, 'Sunday School'),
+        sundayItems.length ? sundayItems.map(classCard) : h('p', { style: { color: '#aaa' } }, 'No Sunday School classes.'),
+        h('p', { className: 'preview-label', style: { marginTop: '24px' } }, 'Midweek'),
+        midweekItems.length ? midweekItems.map(classCard) : h('p', { style: { color: '#aaa' } }, 'No midweek classes.')
+      );
+    });
+
+    // ── Ministries Preview ───────────────────────────────────
+    CMS.registerPreviewTemplate('ministries_list', function(props) {
+      var minis = props.entry.getIn(['data', 'ministries']);
+      var items = minis ? minis.toJS() : [];
+      return h('div', { className: 'preview-wrap' },
+        h('p', { className: 'preview-label' }, 'Ministries'),
+        items.map(function(m, i) {
+          return h('div', { key: i, className: 'preview-card', style: { display: 'flex', gap: '14px', alignItems: 'flex-start' } },
+            h('div', { className: 'ministry-badge', style: { background: m.color || '#333' } }, m.icon || ''),
+            h('div', {},
+              h('h3', { style: { margin: '0 0 4px', fontSize: '15px' } }, m.title || ''),
+              h('p', { style: { margin: 0, fontSize: '13px', color: '#555' } }, m.description || ''),
+              m.link ? h('a', { href: m.link, style: { fontSize: '12px', color: '#b8860b' } }, m.linkText || m.link) : null
+            )
+          );
+        })
+      );
+    });
+
+    // ── Sermon Series Preview ────────────────────────────────
+    CMS.registerPreviewTemplate('sermon_series', function(props) {
+      var series = props.entry.getIn(['data', 'series']) || '';
+      var subtitle = props.entry.getIn(['data', 'subtitle']) || '';
+      return h('div', { className: 'preview-wrap' },
+        h('p', { className: 'preview-label' }, 'Current Sermon Series'),
+        h('div', { style: { background: '#1e3a5f', color: '#fff', borderRadius: '12px', padding: '40px 32px', textAlign: 'center' } },
+          h('p', { style: { margin: '0 0 8px', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#b8860b' } }, 'Current Sermon Series'),
+          h('h1', { style: { margin: '0 0 12px', fontSize: '36px', fontWeight: '800' } }, series),
+          h('p', { style: { margin: 0, fontSize: '15px', color: '#cdd' } }, subtitle)
+        )
+      );
+    });
+
+    // ── Livestream Preview ───────────────────────────────────
+    CMS.registerPreviewTemplate('livestream_settings', function(props) {
+      var nextService = props.entry.getIn(['data', 'nextService']) || '';
+      var ytUrl = props.entry.getIn(['data', 'youtubeChannelUrl']) || '';
+      var embedId = props.entry.getIn(['data', 'rumbleEmbedId']) || '';
+      return h('div', { className: 'preview-wrap' },
+        h('p', { className: 'preview-label' }, 'Livestream'),
+        h('div', { className: 'preview-card', style: { textAlign: 'center' } },
+          embedId
+            ? h('p', { style: { color: '#555', fontSize: '14px' } }, 'Rumble embed ID: ' + embedId)
+            : h('div', { style: { background: '#f0f0f0', borderRadius: '8px', padding: '32px', marginBottom: '16px' } },
+                h('p', { style: { margin: '0 0 8px', color: '#888', fontSize: '12px' } }, 'Next Service'),
+                h('p', { style: { margin: 0, fontSize: '18px', fontWeight: '700', color: '#1e3a5f' } }, nextService)
+              ),
+          ytUrl ? h('p', { style: { margin: '8px 0 0', fontSize: '12px', color: '#888' } }, 'YouTube: ' + ytUrl) : null
+        )
+      );
+    });
+  </script>
+</body>
+</html>

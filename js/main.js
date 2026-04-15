@@ -182,10 +182,10 @@ Promise.all([
   fetchJSON('data/classes.json'),
   fetchJSON('data/ministries.json'),
   fetchJSON('data/livestream.json'),
-]).then(([sermon, events, classes, ministries, livestream]) => {
+]).then(([sermon, eventsData, classes, ministriesData, livestream]) => {
   renderSermon(sermon);
-  renderEvents(events);
+  renderEvents(eventsData.events);
   renderClasses(classes);
-  renderMinistries(ministries);
+  renderMinistries(ministriesData.ministries);
   renderWatch(livestream);
 }).catch(err => console.warn('Content load error:', err));
