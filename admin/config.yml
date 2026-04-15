@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: master
+  branch: cms-content
 
 publish_mode: editorial_workflow
 
@@ -88,7 +88,6 @@ collections:
         label: Livestream Settings
         file: data/livestream.json
         fields:
-          - {name: rumbleEmbedId, label: Rumble Embed ID, widget: string}
-          - {name: rumblePubId, label: Rumble Publisher ID, widget: string}
+          - {name: rumbleLiveChannelUrl, label: Rumble Live Channel URL, widget: string, required: false, hint: "e.g. https://rumble.com/user/neoshonaz/live — set this to always point to your channel's live stream without changing it each week"}
           - {name: nextService, label: Next Service Text, widget: string, hint: "e.g. Join us this Sunday at 10:30 AM"}
           - {name: youtubeChannelUrl, label: YouTube Channel URL, widget: string}

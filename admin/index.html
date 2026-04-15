@@ -18,7 +18,7 @@
 </head>
 <body>
   <meta name="robots" content="noindex,nofollow" />
-  <script src="https://unpkg.com/decap-cms@3.7.3/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
     // Safe URL helper for preview templates (mirrors main.js safeUrl)
     function safeUrl(url) {
@@ -130,12 +130,15 @@
     CMS.registerPreviewTemplate('livestream_settings', function(props) {
       var nextService = props.entry.getIn(['data', 'nextService']) || '';
       var ytUrl = props.entry.getIn(['data', 'youtubeChannelUrl']) || '';
-      var embedId = props.entry.getIn(['data', 'rumbleEmbedId']) || '';
+      var liveUrl = props.entry.getIn(['data', 'rumbleLiveChannelUrl']) || '';
       return h('div', { className: 'preview-wrap' },
         h('p', { className: 'preview-label' }, 'Livestream'),
         h('div', { className: 'preview-card', style: { textAlign: 'center' } },
-          embedId
-            ? h('p', { style: { color: '#555', fontSize: '14px' } }, 'Rumble embed ID: ' + embedId)
+          liveUrl
+            ? h('div', { style: { background: '#f0f0f0', borderRadius: '8px', padding: '24px', marginBottom: '16px' } },
+                h('p', { style: { margin: '0 0 6px', color: '#888', fontSize: '12px' } }, 'Live Channel'),
+                h('a', { href: safeUrl(liveUrl), style: { fontSize: '13px', color: '#1e3a5f', fontWeight: '600', wordBreak: 'break-all' } }, liveUrl)
+              )
             : h('div', { style: { background: '#f0f0f0', borderRadius: '8px', padding: '32px', marginBottom: '16px' } },
                 h('p', { style: { margin: '0 0 8px', color: '#888', fontSize: '12px' } }, 'Next Service'),
                 h('p', { style: { margin: 0, fontSize: '18px', fontWeight: '700', color: '#1e3a5f' } }, nextService)
