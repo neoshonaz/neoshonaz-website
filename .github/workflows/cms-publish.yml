@@ -1,0 +1,97 @@
+name: CMS Publish Gate
+
+# Runs when Decap CMS publishes content via Git Gateway to cms-content.
+# Validates that only allowed files were changed, then opens a PR to master.
+# If disallowed files were changed, the commit is flagged and no PR is opened.
+
+on:
+  push:
+    branches:
+      - cms-content
+
+jobs:
+  validate-and-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check changed files
+        id: check
+        run: |
+          # Get list of files changed in this push
+          CHANGED=$(git diff --name-only HEAD~1 HEAD)
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          # Allow only data/*.json and images/*
+          DISALLOWED=$(echo "$CHANGED" | grep -v '^data/[^/]*\.json$' | grep -v '^images/' || true)
+
+          if [ -n "$DISALLOWED" ]; then
+            echo "disallowed_files=$DISALLOWED" >> $GITHUB_OUTPUT
+            echo "safe=false" >> $GITHUB_OUTPUT
+            echo "::error::Disallowed files changed: $DISALLOWED"
+          else
+            echo "safe=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Open PR to master (safe changes)
+        if: steps.check.outputs.safe == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%s)
+          BRANCH="cms-content"
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+
+          # Check if a PR already exists for cms-content → master
+          EXISTING=$(gh pr list --base master --head "$BRANCH" --json number --jq '.[0].number' 2>/dev/null || echo "")
+
+          if [ -n "$EXISTING" ]; then
+            echo "PR #$EXISTING already open for cms-content → master, new commit added to it."
+          else
+            gh pr create \
+              --base master \
+              --head "$BRANCH" \
+              --title "content: $COMMIT_MSG" \
+              --body "$(cat <<'EOF'
+Automated CMS content update. All changed files are within the allowed scope:
+- \`data/*.json\`
+- \`images/\`
+
+Opened automatically by the CMS Publish Gate workflow.
+EOF
+)"
+          fi
+
+      - name: Flag disallowed changes
+        if: steps.check.outputs.safe == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DISALLOWED="${{ steps.check.outputs.disallowed_files }}"
+          echo "::error::CMS commit touched files outside allowed scope. No PR opened."
+          echo "Disallowed: $DISALLOWED"
+
+          # Open an issue to alert the site owner
+          gh issue create \
+            --title "CMS security alert: disallowed files changed on cms-content" \
+            --body "$(cat <<EOF
+A CMS commit on the \`cms-content\` branch changed files outside the allowed scope (\`data/*.json\` and \`images/\`).
+
+**Disallowed files:**
+\`\`\`
+$DISALLOWED
+\`\`\`
+
+**Commit:** ${{ github.sha }}
+
+No PR to master was opened. Please review the commit and take action.
+EOF
+)"
