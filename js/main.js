@@ -53,6 +53,10 @@ function renderSermon(data) {
   document.getElementById('hero-series-subtitle').textContent = data.subtitle;
 }
 
+function safeColor(str) {
+  return /^#[0-9a-fA-F]{3,6}$/.test(str) ? str : '#333333';
+}
+
 function renderEvents(events) {
   const sorted = [...events].sort((a, b) => {
     if (!a.date) return 1;
@@ -67,13 +71,13 @@ function renderEvents(events) {
     container.innerHTML = sorted.map(e => `
       <article class="card event-card">
         <div class="event-date">
-          <span class="event-month">${e.month}</span>
-          <span class="event-day">${e.day}</span>
+          <span class="event-month">${escapeHtml(e.month)}</span>
+          <span class="event-day">${escapeHtml(e.day)}</span>
         </div>
         <div class="event-body">
-          <h3>${e.title}</h3>
-          <p>${e.description}</p>
-          <span class="event-time">${e.time}</span>
+          <h3>${escapeHtml(e.title)}</h3>
+          <p>${escapeHtml(e.description)}</p>
+          <span class="event-time">${escapeHtml(e.time)}</span>
           ${e.link ? `<a href="${safeUrl(e.link)}" class="btn btn-navy" style="margin-top:0.75rem;display:inline-block" target="_blank">Learn More</a>` : ''}
         </div>
       </article>
@@ -85,11 +89,11 @@ function renderClasses(data) {
   function classCard(c) {
     return `
       <div class="card class-card">
-        <div class="class-icon">${c.icon}</div>
-        <h3>${c.title}</h3>
-        <p>${c.description}</p>
-        ${c.leader ? `<p class="class-leader">${c.leader}</p>` : ''}
-        <span class="class-time">${c.time}</span>
+        <div class="class-icon">${escapeHtml(c.icon)}</div>
+        <h3>${escapeHtml(c.title)}</h3>
+        <p>${escapeHtml(c.description)}</p>
+        ${c.leader ? `<p class="class-leader">${escapeHtml(c.leader)}</p>` : ''}
+        <span class="class-time">${escapeHtml(c.time)}</span>
       </div>
     `;
   }
@@ -103,10 +107,10 @@ function renderMinistries(ministries) {
   const container = document.getElementById('ministries-container');
   container.innerHTML = ministries.map(m => `
     <div class="ministry-card">
-      <div class="ministry-badge" style="background: ${m.color};">${m.icon}</div>
+      <div class="ministry-badge" style="background: ${safeColor(m.color)};">${escapeHtml(m.icon)}</div>
       <div class="ministry-body">
-        <h3>${m.title}</h3>
-        <p>${m.description}${m.link ? ` <a href="${safeUrl(m.link)}" target="_blank" style="color:var(--gold);font-weight:600;">${m.linkText}</a>` : ''}</p>
+        <h3>${escapeHtml(m.title)}</h3>
+        <p>${escapeHtml(m.description)}${m.link ? ` <a href="${safeUrl(m.link)}" target="_blank" style="color:var(--gold);font-weight:600;">${escapeHtml(m.linkText)}</a>` : ''}</p>
       </div>
     </div>
   `).join('');

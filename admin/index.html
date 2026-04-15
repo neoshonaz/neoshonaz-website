@@ -17,8 +17,14 @@
   </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <meta name="robots" content="noindex,nofollow" />
+  <script src="https://unpkg.com/decap-cms@3.7.3/dist/decap-cms.js"></script>
   <script>
+    // Safe URL helper for preview templates (mirrors main.js safeUrl)
+    function safeUrl(url) {
+      return (url && (url.startsWith('http://') || url.startsWith('https://'))) ? url : '#';
+    }
+
     // Inject styles into the preview iframe
     CMS.registerPreviewStyle('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     CMS.registerPreviewStyle([
@@ -56,7 +62,7 @@
               h('h3', { style: { margin: '0 0 6px', fontSize: '16px' } }, e.title || ''),
               h('p', { style: { margin: '0 0 4px', color: '#555', fontSize: '14px' } }, e.description || ''),
               h('span', { style: { fontSize: '13px', color: '#888' } }, e.time || ''),
-              e.link ? h('a', { href: e.link, style: { fontSize: '12px', color: '#b8860b', display: 'block', marginTop: '4px' } }, 'Learn More') : null
+              e.link ? h('a', { href: safeUrl(e.link), style: { fontSize: '12px', color: '#b8860b', display: 'block', marginTop: '4px' } }, 'Learn More') : null
             )
           );
         })
@@ -99,7 +105,7 @@
             h('div', {},
               h('h3', { style: { margin: '0 0 4px', fontSize: '15px' } }, m.title || ''),
               h('p', { style: { margin: 0, fontSize: '13px', color: '#555' } }, m.description || ''),
-              m.link ? h('a', { href: m.link, style: { fontSize: '12px', color: '#b8860b' } }, m.linkText || m.link) : null
+              m.link ? h('a', { href: safeUrl(m.link), style: { fontSize: '12px', color: '#b8860b' } }, m.linkText || m.link) : null
             )
           );
         })
