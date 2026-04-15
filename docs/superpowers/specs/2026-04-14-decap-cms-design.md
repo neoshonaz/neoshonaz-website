@@ -39,10 +39,14 @@ List collection — each item is an event.
 | Field | Type | Notes |
 |---|---|---|
 | `title` | String | Event name |
-| `date` | Date | Date picker |
+| `date` | String | YYYY-MM-DD — used only for sort order, e.g. `2026-07-04` |
+| `month` | String | Short uppercase month displayed in the date badge, e.g. `JUL` |
+| `day` | String | Day number displayed in the date badge, e.g. `4` |
 | `time` | String | e.g. "3:00 PM" |
 | `description` | Text | Multi-line |
-| `image` | Image | Optional, saved to `images/` |
+| `link` | String | Optional "Learn More" URL |
+
+> **Note:** A native date picker with computed `month`/`day` display fields was considered but deferred. The current three-field approach matches how `main.js` consumes event data. Image support is also deferred — see Future Work.
 
 ### Classes — Sunday School (`data/classes.json` → `sundaySchool`)
 List collection — each item is a Sunday School class.
@@ -83,9 +87,8 @@ Single-item collection.
 
 | Field | Type | Notes |
 |---|---|---|
-| `rumbleEmbedId` | String | Rumble embed ID |
-| `rumblePubId` | String | Rumble publisher ID |
-| `nextService` | String | e.g. "Join us this Sunday at 10:30 AM" |
+| `rumbleLiveChannelUrl` | String | Optional — persistent channel live URL, e.g. `https://rumble.com/user/neoshonaz/live`. When set, the live embed is always shown. |
+| `nextService` | String | Shown when no live URL is set, e.g. "Join us this Sunday at 10:30 AM" |
 | `youtubeChannelUrl` | String | YouTube channel URL |
 
 ---
@@ -99,7 +102,7 @@ Draft → In Review → Ready → Published
 ```
 
 - **Draft:** Editor saves a change. Decap commits to a new branch. Netlify auto-builds a deploy preview.
-- **In Review:** Editor (or owner) drags the card on the Workflow Kanban board to signal it's ready to check.
+- **In Review:** Editor changes status via the status button in the entry editor toolbar (preferred), or by dragging the card on the Workflow Kanban board.
 - **Ready:** Reviewed and approved — ready to go live.
 - **Published:** Editor or owner clicks Publish. Decap merges the branch to master. Netlify deploys to production (~1 min).
 
@@ -149,8 +152,19 @@ Templates use plain JavaScript and inline styles. No build step required.
 
 ---
 
+## Deploy Notifications
+
+When an editor publishes a change and Netlify deploys to production, the site owner email receives an automatic notification.
+
+- **Method:** Netlify's built-in deploy notifications (no code required)
+- **Configured in:** Netlify dashboard → Site settings → Notifications → Email
+- **Trigger:** Successful deploy to production only (not previews)
+- **Recipient:** Site owner email (`OWNER_EMAIL`)
+
+---
+
 ## Out of Scope
 
 - Custom roles (all invited editors have the same permissions)
-- Email notifications when drafts are created or published
+- Notifications when drafts are created or moved through the workflow (publish-only)
 - Any changes to the public site's HTML/CSS/JS structure

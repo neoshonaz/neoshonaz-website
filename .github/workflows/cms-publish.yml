@@ -1,0 +1,72 @@
+name: CMS Publish Gate
+
+# Runs when Decap CMS publishes content via Git Gateway to cms-content.
+# Validates that only allowed files were changed (data/*.json and images/).
+# If safe: merges directly to master so Netlify auto-deploys.
+# If unsafe: blocks the merge and opens a GitHub issue to alert the site owner.
+
+on:
+  push:
+    branches:
+      - cms-content
+
+jobs:
+  validate-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          token: ${{ secrets.CMS_PAT }}
+
+      - name: Check changed files
+        id: check
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD)
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          DISALLOWED=$(echo "$CHANGED" | grep -Ev '^data/[^/]+\.json$|^images/' || true)
+
+          if [ -n "$DISALLOWED" ]; then
+            echo "safe=false" >> $GITHUB_OUTPUT
+            # Store disallowed files for the alert step (newlines → escaped)
+            echo "disallowed<<EOF" >> $GITHUB_OUTPUT
+            echo "$DISALLOWED" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "safe=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Merge to master
+        if: steps.check.outputs.safe == 'true'
+        run: |
+          git config user.name "cms-publish-gate[bot]"
+          git config user.email "cms-publish-gate[bot]@users.noreply.github.com"
+          git fetch origin master
+          git checkout master
+          git merge --ff-only origin/cms-content || git merge -X theirs origin/cms-content
+          git push origin master
+
+      - name: Alert on disallowed changes
+        if: steps.check.outputs.safe == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.CMS_PAT }}
+        run: |
+          gh issue create \
+            --title "CMS security alert: disallowed files changed on cms-content" \
+            --body "A CMS publish on the \`cms-content\` branch changed files outside the allowed scope (\`data/*.json\` and \`images/\`).
+
+          **Disallowed files:**
+          \`\`\`
+          ${{ steps.check.outputs.disallowed }}
+          \`\`\`
+
+          **Commit:** ${{ github.sha }}
+
+          The change was **not** merged to master. Please review and take action."
