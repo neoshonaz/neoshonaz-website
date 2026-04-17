@@ -91,7 +91,7 @@ function renderClasses(data) {
       <div class="card class-card">
         <div class="class-icon">${escapeHtml(c.icon)}</div>
         <h3>${escapeHtml(c.title)}</h3>
-        <p>${escapeHtml(c.description)}</p>
+        <p>${c.description}</p>
         ${c.leader ? `<p class="class-leader">${escapeHtml(c.leader)}</p>` : ''}
         <span class="class-time">${escapeHtml(c.time)}</span>
       </div>
