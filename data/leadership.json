@@ -3,37 +3,37 @@
     {
       "name": "Rev. James Keezer",
       "title": "Senior Pastor",
-      "photo": "images/Keezer-Couple-738x1024.jpeg"
+      "photo": "/images/Keezer-Couple-738x1024.jpeg"
     },
     {
       "name": "Rev. Justin Couch",
       "title": "Associate Pastor",
-      "photo": "images/Couch-Couple-1-768x1023.jpeg"
+      "photo": "/images/Couch-Couple-1-768x1023.jpeg"
     },
     {
       "name": "Beau & Lauren Davis",
       "title": "Youth Pastors",
-      "photo": "images/Davis-Couple-768x871.jpeg"
+      "photo": "/images/Davis-Couple-768x871.jpeg"
     },
     {
       "name": "Jason Brant",
       "title": "Children's Ministries",
-      "photo": "images/Brant-Couple-768x577.jpeg"
+      "photo": "/images/Brant-Couple-768x577.jpeg"
     },
     {
       "name": "Lauren Liggett",
       "title": "Worship Leader",
-      "photo": "images/Liggett-768x1016.jpeg"
+      "photo": "/images/Liggett-768x1016.jpeg"
     },
     {
       "name": "Rev. Darrell Cox",
       "title": "PrimeTime Ministries",
-      "photo": "images/Cox-couple.JPEG"
+      "photo": "/images/Cox-couple.JPEG"
     },
     {
       "name": "Rev. DL Huffman",
       "title": "Pastor Emeritus",
-      "photo": "images/Pastor-Huffman-225x300.jpg"
+      "photo": "/images/Pastor-Huffman-225x300.jpg"
     }
   ]
 }
