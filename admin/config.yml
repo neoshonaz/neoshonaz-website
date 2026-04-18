@@ -73,6 +73,21 @@ collections:
               - {name: link, label: Link URL, widget: string, required: false}
               - {name: linkText, label: Link Text, widget: string, required: false}
 
+  - name: leadership
+    label: Leadership
+    files:
+      - name: leadership_list
+        label: Leadership Team
+        file: data/leadership.json
+        fields:
+          - name: leaders
+            label: Leaders
+            widget: list
+            fields:
+              - {name: name, label: Name, widget: string}
+              - {name: title, label: Title, widget: string}
+              - {name: photo, label: Photo, widget: image, required: false}
+
   - name: sermon
     label: Sermon Series
     files:

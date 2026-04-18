@@ -116,6 +116,21 @@ function renderMinistries(ministries) {
   `).join('');
 }
 
+function renderLeadership(data) {
+  const container = document.getElementById('leadership-container');
+  container.innerHTML = data.leaders.map(l => `
+    <div class="leader-card">
+      <div class="leader-photo">
+        ${l.photo ? `<img src="${escapeHtml(l.photo)}" alt="${escapeHtml(l.name)}" />` : ''}
+      </div>
+      <div class="leader-info">
+        <h3>${escapeHtml(l.name)}</h3>
+        <p class="leader-title">${escapeHtml(l.title)}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
 function renderWatch(data) {
   const featured = document.getElementById('watch-featured');
   const archiveEl = document.getElementById('watch-archive');
@@ -200,10 +215,12 @@ Promise.all([
   fetchJSON('data/classes.json'),
   fetchJSON('data/ministries.json'),
   fetchJSON('data/livestream.json'),
-]).then(([sermon, eventsData, classes, ministriesData, livestream]) => {
+  fetchJSON('data/leadership.json'),
+]).then(([sermon, eventsData, classes, ministriesData, livestream, leadership]) => {
   renderSermon(sermon);
   renderEvents(eventsData.events);
   renderClasses(classes);
   renderMinistries(ministriesData.ministries);
   renderWatch(livestream);
+  renderLeadership(leadership);
 }).catch(err => console.warn('Content load error:', err));

@@ -40,6 +40,24 @@
     // Decap CMS 3.x exposes React.createElement as window.h when loaded via CDN
     var h = window.h;
 
+    // ── Leadership Preview ───────────────────────────────────
+    CMS.registerPreviewTemplate('leadership_list', function(props) {
+      var leaders = props.entry.getIn(['data', 'leaders']);
+      var items = leaders ? leaders.toJS() : [];
+      return h('div', { className: 'preview-wrap' },
+        h('p', { className: 'preview-label' }, 'Leadership Team'),
+        items.map(function(l, i) {
+          return h('div', { key: i, className: 'preview-card', style: { display: 'flex', gap: '14px', alignItems: 'center' } },
+            l.photo ? h('img', { src: l.photo, alt: l.name, style: { width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', flexShrink: '0' } }) : null,
+            h('div', {},
+              h('h3', { style: { margin: '0 0 4px', fontSize: '15px' } }, l.name || ''),
+              h('p', { style: { margin: 0, fontSize: '13px', color: '#555' } }, l.title || '')
+            )
+          );
+        })
+      );
+    });
+
     // ── Events Preview ───────────────────────────────────────
     CMS.registerPreviewTemplate('events_list', function(props) {
       var events = props.entry.getIn(['data', 'events']);
