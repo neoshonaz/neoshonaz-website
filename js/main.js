@@ -181,6 +181,45 @@ function renderWatch(data) {
     `;
   }
 
+  // YouTube live embed (hidden until ready to use)
+  const safeYtVideoId = data.youtubeLiveVideoId && /^[\w-]+$/.test(data.youtubeLiveVideoId)
+    ? data.youtubeLiveVideoId : null;
+  if (safeYtVideoId) {
+    const ytEmbed = document.createElement('div');
+    ytEmbed.style.display = 'none';
+    ytEmbed.innerHTML = `
+      <div class="watch-embed">
+        <iframe
+          src="https://www.youtube.com/embed/${safeYtVideoId}"
+          title="Live Service (YouTube)"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    `;
+    featured.after(ytEmbed);
+  }
+
+  // Facebook live embed (hidden until ready to use)
+  const fbUrl = data.facebookLiveVideoUrl || '';
+  if (fbUrl.startsWith('https://www.facebook.com/')) {
+    const fbEmbed = document.createElement('div');
+    fbEmbed.style.display = 'none';
+    fbEmbed.innerHTML = `
+      <div class="watch-embed">
+        <iframe
+          src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(fbUrl)}&show_text=0"
+          title="Live Service (Facebook)"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    `;
+    featured.after(fbEmbed);
+  }
+
   // YouTube archive grid
   if (data.archive && data.archive.length > 0) {
     archiveEl.innerHTML = data.archive.map(s => {

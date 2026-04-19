@@ -105,6 +105,8 @@ collections:
         label: Livestream Settings
         file: data/livestream.json
         fields:
+          - {name: youtubeLiveVideoId, label: YouTube Live Video ID, widget: string, required: false, hint: "Video ID from the YouTube live link, e.g. h6sND0rm30g — update each service"}
+          - {name: facebookLiveVideoUrl, label: Facebook Live Video URL, widget: string, required: false, hint: "Full Facebook video URL, e.g. https://www.facebook.com/NeoshoNaz/videos/1234567890 — update each service"}
           - {name: rumbleLiveChannelUrl, label: Rumble Live Channel URL, widget: string, required: false, hint: "e.g. https://rumble.com/user/neoshonaz/live — set this to always point to your channel's live stream without changing it each week"}
           - {name: nextService, label: Next Service Text, widget: string, hint: "e.g. Join us this Sunday at 10:30 AM"}
           - {name: youtubeChannelUrl, label: YouTube Channel URL, widget: string}
