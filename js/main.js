@@ -141,37 +141,82 @@ function renderWatch(data) {
   // Update YouTube channel link
   if (data.youtubeChannelUrl) ytLink.href = data.youtubeChannelUrl;
 
-  // Live embed or Next Service card
-  const liveChannelUrl = data.rumbleLiveChannelUrl || null;
-  const safeEmbedId = !liveChannelUrl && data.rumbleEmbedId && /^[\w-]+$/.test(data.rumbleEmbedId)
-    ? data.rumbleEmbedId : null;
-  const safePubId = data.rumblePubId && /^[\w-]+$/.test(data.rumblePubId)
-    ? data.rumblePubId : '4';
+  const mode = data.mode || 'off';
 
-  if (liveChannelUrl) {
-    const channelBase = liveChannelUrl.replace(/\/live\/?$/, '');
-    const embedSrc = `https://rumble.com/embed/live_stream?url=${encodeURIComponent(channelBase)}`;
-    featured.innerHTML = `
-      <div class="watch-embed" style="margin-bottom:2rem;">
-        <iframe
-          src="${embedSrc}"
-          title="Live Service"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-      </div>
-    `;
-  } else if (safeEmbedId) {
-    featured.innerHTML = `
-      <div class="watch-embed" style="margin-bottom:2rem;">
-        <iframe
-          src="https://rumble.com/embed/${safeEmbedId}/?pub=${safePubId}"
-          title="Live Service"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-      </div>
-    `;
+  if (mode === 'live') {
+    const safeYtId = data.youtubeLiveVideoId && /^[\w-]+$/.test(data.youtubeLiveVideoId)
+      ? data.youtubeLiveVideoId : null;
+    const fbUrl = (data.facebookLiveVideoUrl || '').startsWith('https://www.facebook.com/')
+      ? data.facebookLiveVideoUrl : null;
+    const rumbleChannelUrl = data.rumbleLiveChannelUrl || null;
+
+    if (safeYtId) {
+      featured.innerHTML = `
+        <div class="watch-embed">
+          <iframe
+            src="https://www.youtube.com/embed/${safeYtId}"
+            title="Live Service"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      `;
+    } else if (fbUrl) {
+      featured.innerHTML = `
+        <div class="watch-embed">
+          <iframe
+            src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(fbUrl)}&show_text=0"
+            title="Live Service"
+            frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      `;
+    } else if (rumbleChannelUrl) {
+      const channelBase = rumbleChannelUrl.replace(/\/live\/?$/, '');
+      featured.innerHTML = `
+        <div class="watch-embed">
+          <iframe
+            src="https://rumble.com/embed/live_stream?url=${encodeURIComponent(channelBase)}"
+            title="Live Service"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      `;
+    } else {
+      featured.innerHTML = `
+        <div class="next-service-card">
+          <p class="next-service-label">Next Service</p>
+          <p class="next-service-text">${escapeHtml(data.nextService)}</p>
+        </div>
+      `;
+    }
+  } else if (mode === 'playlist') {
+    const safeListId = data.youtubePlaylistId && /^[\w-]+$/.test(data.youtubePlaylistId)
+      ? data.youtubePlaylistId : null;
+    if (safeListId) {
+      featured.innerHTML = `
+        <div class="watch-embed">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=${safeListId}"
+            title="Sermon Playlist"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      `;
+    } else {
+      featured.innerHTML = `
+        <div class="next-service-card">
+          <p class="next-service-label">Next Service</p>
+          <p class="next-service-text">${escapeHtml(data.nextService)}</p>
+        </div>
+      `;
+    }
   } else {
     featured.innerHTML = `
       <div class="next-service-card">

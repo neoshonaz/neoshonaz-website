@@ -9,8 +9,8 @@ Approved senders can email a dedicated address to request changes to the website
 
 ## Inbound Email Setup
 
-- **Address:** `updates@mail.neoshonaz.com`
-- **DNS:** A subdomain (`mail.neoshonaz.com`) is added in Porkbun with SendGrid's MX records. The main domain is untouched.
+- **Address:** `updates@mail.neoshonaz.org`
+- **DNS:** A subdomain (`mail.neoshonaz.org`) is added in Porkbun with SendGrid's MX records. The main domain is untouched.
 - **Format:** Plain English in the email body. No special syntax required. Images may be attached.
   - Example: *"Add an event: Summer BBQ on July 4th at 3pm in the church parking lot"*
   - Example: *"Update the sermon series to Philippians"*
@@ -34,7 +34,7 @@ Approved senders can email a dedicated address to request changes to the website
 ```
 Approved sender
     │
-    │  email (with optional image attachment) to updates@mail.neoshonaz.com
+    │  email (with optional image attachment) to updates@mail.neoshonaz.org
     ▼
 SendGrid Inbound Parse
     │
@@ -82,7 +82,11 @@ Netlify auto-deploys to production
   - Calls GitHub API to close any open PRs with label `email-edit` from the same sender (auto-cleanup)
   - Fires `repository_dispatch` event to GitHub with payload `{ sender_email, sender_name, subject, body, attachments }`
   - Returns `200`
-- **On any failure:** Returns `200` silently (never reveals why it rejected)
+- **On any failure:** Returns `200` silently to the outside world (nothing leaked), but sends a failure notification email to the site owner (`OWNER_EMAIL`) with the reason. Failure categories:
+  - Invalid webhook token (possible probe attempt)
+  - Invalid SendGrid signature (possible forged request)
+  - Unauthorized sender (email not in approved list — includes the sender's address in the owner notification)
+  - GitHub API error (dispatch failed)
 - **Type:** Standard Netlify Function — validates and dispatches only, well within 10s
 
 ---
@@ -150,7 +154,7 @@ Netlify auto-deploys to production
 > [Approve & Publish]
 >
 > **Step 3 — If something is wrong**
-> Simply send a new email to updates@mail.neoshonaz.com describing the correction. Your previous change will be automatically cancelled and a new preview will be created.
+> Simply send a new email to updates@mail.neoshonaz.org describing the correction. Your previous change will be automatically cancelled and a new preview will be created.
 >
 > You can also view the full change on GitHub here: [PR Link]
 
@@ -158,11 +162,18 @@ Netlify auto-deploys to production
 
 ## Image Handling
 
+**Adding an image:**
 - Any image attached to an inbound email is extracted from the SendGrid payload
 - Saved to `images/` in the repo with a sanitized, lowercase filename (e.g. `kingdom-kids-banner.jpg`)
-- Claude is told the relative image path and instructed to place it in the most appropriate JSON field (e.g. an `image` field on the relevant class or event entry)
-- Claude may not rename or move existing images — only add new ones
+- Claude is told the relative image path and instructed to place it in the most appropriate JSON field
 - Supported formats: JPEG, PNG, WebP, GIF
+
+**Removing an image:**
+- If the sender instructs that an image be removed (e.g. *"Remove the photo from the Kingdom Kids class"*), Claude:
+  1. Sets the relevant JSON image field to `""`
+  2. Identifies the filename currently in that field and marks it for deletion
+- The GitHub Actions workflow deletes the file from `images/` in the same commit
+- Claude may not rename or move existing images — only add or remove them
 
 ---
 
@@ -205,13 +216,14 @@ All secrets stored in Netlify dashboard (for Functions) and GitHub repository se
 - Add, edit, or remove items within any of the five JSON files
 - Interpret natural language and map it to the correct file and field
 - Place an attached image path into the correct JSON field
+- Remove an image reference from a JSON field when instructed (sets the field to `""`) and deletes the image file from `images/` in the same commit
 
 **Cannot:**
 - Modify `index.html`, CSS, JS, or any non-JSON file
 - Change the structure or schema of the JSON files (only values)
 - Rename or move existing images
 - Access external URLs or APIs
-- Take any action outside of returning edited JSON and saving an image
+- Take any action outside of returning edited JSON, saving an image, or deleting an image
 
 ---
 
