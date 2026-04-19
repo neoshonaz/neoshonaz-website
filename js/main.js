@@ -148,7 +148,8 @@ function renderWatch(data) {
       ? data.youtubeLiveVideoId : null;
     const fbUrl = (data.facebookLiveVideoUrl || '').startsWith('https://www.facebook.com/')
       ? data.facebookLiveVideoUrl : null;
-    const rumbleChannelUrl = data.rumbleLiveChannelUrl || null;
+    const safeRumbleId = data.rumbleLiveVideoId && /^[\w-]+$/.test(data.rumbleLiveVideoId)
+      ? data.rumbleLiveVideoId : null;
 
     if (safeYtId) {
       featured.innerHTML = `
@@ -174,12 +175,11 @@ function renderWatch(data) {
           ></iframe>
         </div>
       `;
-    } else if (rumbleChannelUrl) {
-      const channelBase = rumbleChannelUrl.replace(/\/live\/?$/, '');
+    } else if (safeRumbleId) {
       featured.innerHTML = `
         <div class="watch-embed">
           <iframe
-            src="https://rumble.com/embed/live_stream?url=${encodeURIComponent(channelBase)}"
+            src="https://rumble.com/embed/${safeRumbleId}/"
             title="Live Service"
             frameborder="0"
             allowfullscreen
