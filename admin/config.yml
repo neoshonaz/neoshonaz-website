@@ -116,7 +116,7 @@ collections:
             hint: "Controls what appears in the Watch section. Switch to Live during a service, Playlist between series, Off otherwise."
           - {name: youtubeLiveVideoId, label: YouTube Live Video ID, widget: string, required: false, hint: "Mode: Live only. Video ID from the YouTube live link, e.g. h6sND0rm30g — update each service. Takes priority over Facebook and Rumble."}
           - {name: facebookLiveVideoUrl, label: Facebook Live Video URL, widget: string, required: false, hint: "Mode: Live only. Full Facebook video URL, e.g. https://www.facebook.com/NeoshoNaz/videos/1234567890. Used if YouTube ID is empty."}
-          - {name: rumbleLiveChannelUrl, label: Rumble Live Channel URL, widget: string, required: false, hint: "Mode: Live only. e.g. https://rumble.com/user/neoshonaz/live. Used if YouTube and Facebook are both empty."}
+          - {name: rumbleLiveVideoId, label: Rumble Live Video ID, widget: string, required: false, hint: "Mode: Live only. Video ID from the Rumble embed code, e.g. v762p0e. Used if YouTube and Facebook are both empty."}
           - {name: youtubePlaylistId, label: YouTube Playlist ID, widget: string, required: false, hint: "Mode: Playlist only. Playlist ID from YouTube, e.g. PLxxxxxxxx"}
           - {name: nextService, label: Next Service Text, widget: string, hint: "Shown when mode is Off (or Live/Playlist with no embed set). e.g. Join us this Sunday at 10:30 AM"}
           - {name: youtubeChannelUrl, label: YouTube Channel URL, widget: string}
