@@ -1,9 +1,10 @@
 {
-  "rumbleLiveChannelUrl": "v78pbla",
+  "mode": "live",
+  "youtubeLiveVideoId": "",
+  "facebookLiveVideoUrl": "https://www.facebook.com/reel/1698422481148100",
+  "rumbleLiveVideoId": "",
+  "youtubePlaylistId": "",
   "nextService": "Join us this Sunday at 10:30 AM",
   "youtubeChannelUrl": "https://www.youtube.com/@NeoshoNaz",
-  "archive": [],
-  "mode": "live",
-  "rumbleLiveVideoId": "",
-  "facebookLiveVideoUrl": "https://www.facebook.com/reel/1698422481148100"
+  "archive": []
 }
