@@ -7,6 +7,14 @@
       "day": "17",
       "time": "After 10:30 service",
       "description": "Come join us for a meal after service!"
+    },
+    {
+      "title": "Joplin NYI Teen Camp: June 8th -12th",
+      "date": "2026-06-08",
+      "month": "June",
+      "day": "8",
+      "time": "all day",
+      "description": "Teen Camp @ Camp Tablerock! "
     }
   ]
 }
