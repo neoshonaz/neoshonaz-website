@@ -167,8 +167,9 @@ function renderWatch(data) {
       featured.innerHTML = `
         <div class="watch-embed">
           <iframe
-            src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(fbUrl)}&show_text=0"
-            title="Live Service"
+            src="https://www.facebook.com/plugins/video.php?height=314&href=${encodeURIComponent(fbUrl)}&show_text=false&width=560&t=0"
+            style="border:none;overflow:hidden"
+            scrolling="no"
             frameborder="0"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             allowfullscreen
