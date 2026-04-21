@@ -146,8 +146,13 @@ function renderWatch(data) {
   if (mode === 'live') {
     const safeYtId = data.youtubeLiveVideoId && /^[\w-]+$/.test(data.youtubeLiveVideoId)
       ? data.youtubeLiveVideoId : null;
-    const fbUrl = (data.facebookLiveVideoUrl || '').startsWith('https://www.facebook.com/')
-      ? data.facebookLiveVideoUrl : null;
+    const fbRaw = data.facebookLiveVideoUrl || '';
+    const fbSrc = fbRaw.startsWith('https://www.facebook.com/plugins/video.php')
+      ? fbRaw
+      : fbRaw.startsWith('https://www.facebook.com/')
+        ? `https://www.facebook.com/plugins/video.php?height=314&href=${encodeURIComponent(fbRaw)}&show_text=false&width=560&t=0`
+        : null;
+    const fbUrl = fbSrc;
     const safeRumbleId = data.rumbleLiveVideoId && /^[\w-]+$/.test(data.rumbleLiveVideoId)
       ? data.rumbleLiveVideoId : null;
 
@@ -167,7 +172,7 @@ function renderWatch(data) {
       featured.innerHTML = `
         <div class="watch-embed">
           <iframe
-            src="https://www.facebook.com/plugins/video.php?height=314&href=${encodeURIComponent(fbUrl)}&show_text=false&width=560&t=0"
+            src="${fbUrl}"
             style="border:none;overflow:hidden"
             scrolling="no"
             frameborder="0"
