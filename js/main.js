@@ -40,6 +40,19 @@ function safeUrl(url) {
   return (url && (url.startsWith('http://') || url.startsWith('https://'))) ? url : '#';
 }
 
+function parseFbEmbedSrc(raw) {
+  if (!raw) return null;
+  if (raw.trimStart().startsWith('<iframe')) {
+    const m = raw.match(/\bsrc="([^"]+)"/);
+    return m ? m[1] : null;
+  }
+  if (raw.startsWith('https://www.facebook.com/plugins/video.php')) return raw;
+  if (raw.startsWith('https://www.facebook.com/')) {
+    return `https://www.facebook.com/plugins/video.php?height=314&href=${encodeURIComponent(raw)}&show_text=false&width=560&t=0`;
+  }
+  return null;
+}
+
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -146,13 +159,7 @@ function renderWatch(data) {
   if (mode === 'live') {
     const safeYtId = data.youtubeLiveVideoId && /^[\w-]+$/.test(data.youtubeLiveVideoId)
       ? data.youtubeLiveVideoId : null;
-    const fbRaw = data.facebookLiveVideoUrl || '';
-    const fbSrc = fbRaw.startsWith('https://www.facebook.com/plugins/video.php')
-      ? fbRaw
-      : fbRaw.startsWith('https://www.facebook.com/')
-        ? `https://www.facebook.com/plugins/video.php?height=314&href=${encodeURIComponent(fbRaw)}&show_text=false&width=560&t=0`
-        : null;
-    const fbUrl = fbSrc;
+    const fbUrl = parseFbEmbedSrc(data.facebookLiveVideoUrl || '');
     const safeRumbleId = data.rumbleLiveVideoId && /^[\w-]+$/.test(data.rumbleLiveVideoId)
       ? data.rumbleLiveVideoId : null;
 
@@ -253,14 +260,14 @@ function renderWatch(data) {
   }
 
   // Facebook live embed (hidden until ready to use)
-  const fbUrl = data.facebookLiveVideoUrl || '';
-  if (fbUrl.startsWith('https://www.facebook.com/')) {
+  const fbHiddenSrc = parseFbEmbedSrc(data.facebookLiveVideoUrl || '');
+  if (fbHiddenSrc) {
     const fbEmbed = document.createElement('div');
     fbEmbed.style.display = 'none';
     fbEmbed.innerHTML = `
       <div class="watch-embed">
         <iframe
-          src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(fbUrl)}&show_text=0"
+          src="${fbHiddenSrc}"
           title="Live Service (Facebook)"
           frameborder="0"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
