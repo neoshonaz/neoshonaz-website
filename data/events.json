@@ -1,46 +1,6 @@
 {
   "events": [
     {
-      "title": "Potluck",
-      "date": "2026-05-17",
-      "month": "MAY",
-      "day": "17",
-      "time": "After 10:30 service",
-      "description": "Come join us for a meal after service!"
-    },
-    {
-      "title": "Joplin NYI Teen Camp: June 8th -12th",
-      "date": "2026-06-08",
-      "month": "June",
-      "day": "8",
-      "time": "all day",
-      "description": "Teen Camp @ Camp Tablerock! "
-    },
-    {
-      "title": "Joplin District Kids Day Camp (Grades 1st & 2nd)",
-      "date": "2026-07-11",
-      "month": "JUL",
-      "day": "11",
-      "time": "8:30 a.m. to 3:00 p.m. ",
-      "description": "Day camp at Camp Cyokamo"
-    },
-    {
-      "title": "Joplin District Kids Camp (Grades 3rd & 4th): July 12-14",
-      "date": "2026-07-12",
-      "month": "JULY",
-      "day": "12 ",
-      "time": "All Day",
-      "description": "Camp for children who have COMPLETED 3rd & 4th grades. "
-    },
-    {
-      "title": "Joplin District Kids Camp (Grades 5th & 6th): July 15-18",
-      "date": "2026-07-15",
-      "month": "JULY",
-      "day": "15",
-      "time": "All Day",
-      "description": "Camp for children who have COMPLETED 5th & 6th grades. "
-    },
-    {
       "title": "Joplin Nazarene District Assembly: (July 26-27)",
       "date": "2026-07-26",
       "month": "JUL",
